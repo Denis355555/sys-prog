@@ -4,4 +4,4 @@ touch testdebian/DEBIAN/control
 dpkg-deb --build testdebian
 sudo dpkg -i testdebian.deb
 chmod +x /usr/local/bin/calc_files.sh
-sudo calc_files.sh --check_dir=testdebian
+sudo calc_files.sh
