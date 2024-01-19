@@ -1,0 +1,39 @@
+name: Build Debian Package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "debian/**"
+      - "**.sh"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Debian
+        run: |
+          mkdir testdebian && mkdir testdebian/DEBIAN
+          mkdir -p testdebian/usr/local/bin
+          cp calc_files.sh testdebian/usr/local/bin/
+          cp debian/control testdebian/DEBIAN
+          dpkg-deb --build testdebian
+          chmod +x /usr/local/bin/calc_files
+
+      - name: Upload DEB
+        uses: actions/upload-artifact@v2
+        with:
+          name: deb-package
+          path: |
+            ~/*.deb
+

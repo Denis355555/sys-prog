@@ -1,0 +1,44 @@
+name: Build RPM Package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "rpm/**.spec"
+      - "**.sh"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: centos:7 # Use CentOS 7
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install RPM build tools
+        run: |
+          yum install -y rpm-build rpmdevtools wget unzip
+          rpmdev-setuptree
+
+      - name: Build RPM
+        run: |
+          cp rpm/calcfiles.spec ~/rpmbuild/SPECS/
+          cd ~/rpmbuild/SOURCES/
+          wget https://github.com/Denis355555/sys-prog/archive/main.zip
+          cd ../../
+          rpmbuild -bs --define "dist .generic" rpmbuild/SPECS/calcfiles.spec
+          rpmbuild --rebuild rpmbuild/SRPMS/calcfiles-1.0-1.generic.src.rpm
+
+      - name: Upload RPM
+        uses: actions/upload-artifact@v2
+        with:
+          name: rpm-package
+          path: |
+            ~/rpmbuild/RPMS/**/*.rpm
+            ~/rpmbuild/SRPMS/**/*.src.rpm

@@ -1,0 +1,12 @@
+Source: calcfiles
+Version: 1.0.0
+Section: utils
+Priority: optional
+Maintainer: Denys Lypa <denzikkryt@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 4.5.0
+Homepage: https://github.com/Denis355555/sys-prog
+Package: calcfiles
+Architecture: all
+Depends: bash
+Description: calcfiles is a simple script that calculates the number of files in a directory.
