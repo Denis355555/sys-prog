@@ -25,10 +25,12 @@ jobs:
         run: |
           mkdir testdebian && mkdir testdebian/DEBIAN
           mkdir -p testdebian/usr/local/bin
-          cp calc_files.sh testdebian/usr/local/bin/
+          cp calc_files.sh testdebian/usr/local/bin/calc_files
           cp debian/control testdebian/DEBIAN
           dpkg-deb --build testdebian
-          chmod +x /usr/local/bin/calc_files
+          chmod +x testdebian/usr/local/bin/calc_files
+
+
 
       - name: Upload DEB
         uses: actions/upload-artifact@v2
