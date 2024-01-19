@@ -23,12 +23,12 @@ jobs:
 
       - name: Build Debian
         run: |
-          sudo mkdir testdebian && mkdir testdebian/DEBIAN
-          sudo mkdir -p testdebian/usr/local/bin
-          sudo cp calc_files.sh testdebian/usr/local/bin/
-          sudo cp debian/control testdebian/DEBIAN
-          sudo dpkg-deb --build testdebian
-          sudo chmod +x /usr/local/bin/calc_files
+          mkdir testdebian && mkdir testdebian/DEBIAN
+          mkdir -p testdebian/usr/local/bin
+          cp calc_files.sh testdebian/usr/local/bin/
+          cp debian/control testdebian/DEBIAN
+          dpkg-deb --build testdebian
+          chmod +x /usr/local/bin/calc_files
 
       - name: Upload DEB
         uses: actions/upload-artifact@v2
