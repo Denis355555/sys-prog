@@ -1,7 +1,7 @@
-mkdir testdebian && mkdir testdebian/DEBIAN
-mkdir -p testdebian/usr/local/bin cp /usr/local/bin/calc_files.sh testdebian/usr/local/bin/
-touch testdebian/DEBIAN/control
-dpkg-deb --build testdebian
+sudo mkdir testdebian && mkdir testdebian/DEBIAN
+sudo mkdir -p testdebian/usr/local/bin cp /usr/local/bin/calc_files.sh testdebian/usr/local/bin/
+sudo touch testdebian/DEBIAN/control
+sudo dpkg-deb --build testdebian
 sudo dpkg -i testdebian.deb
-chmod +x /usr/local/bin/calc_files.sh
+sudo chmod +x /usr/local/bin/calc_files.sh
 sudo calc_files.sh
